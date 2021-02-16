@@ -1,2 +1,2 @@
 # Unity-interstitial-admob
-<h1> Unity ads kodu 6 da bir olasılıkla reklam çıkıyor</h1>
+<h1> Unity ads kodu 4 d bir olasılıkla reklam çıkıyor</h1>
