@@ -1,44 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
-using GoogleMobileAds;
-using GoogleMobileAds.Api;
-
+using UnityEngine.Advertisements;
 public class AdsGecis : MonoBehaviour
 {
 
-    private InterstitialAd inter;
+    public string GameID = "gameid";
+    public string InterstitialPlacementID = "video";
 
-    public string id_Android = "ca-app-pub-9457289458053843/4826625230";
-    public void Start()
+    private bool interstitialGosterilecek = false;
+
+    void Start()
     {
-        this.Request();
+        Advertisement.Initialize(GameID, testModu);
     }
 
-    private void Request()
+    void Update()
     {
-#if UNITY_ANDROID
-            string id = id_Android;
-#else
+        if (interstitialGosterilecek)
+        {
+            float sayi;
+            sayi = Random.Range(0, 6);
 
-        string id = "unexpected_paltform";
+            if (Advertisement.IsReady(InterstitialPlacementID) && sayi == 3)
+            {
+                Advertisement.Show(InterstitialPlacementID);
 
-#endif
-        this.inter = new InterstitialAd(id);
-
-        this.inter.OnAdClosed += InterstitialClosed;
-
-        AdRequest request = new AdRequest.Builder().Build();
-        this.inter.LoadAd(request);
+                interstitialGosterilecek = false;
+            }
+        }
     }
 
-    private void InterstitialClosed(object sender, EventArgs e)
+    public void InterstitialGoster()
     {
-        this.Request();
-    }
-    public void Show()
-    {
-        this.inter.Show();
+        interstitialGosterilecek = true;
     }
 }
